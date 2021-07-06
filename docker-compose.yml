@@ -1,0 +1,45 @@
+version: '3.6'
+services:
+  be:
+    container_name: be
+    build:
+      context: .
+      dockerfile: ./containers/be/Dockerfile
+    env_file:
+      - ./src/be/.env
+    ports:
+      - 8080:8080
+    restart: always
+    environment:
+      PORT: 8080
+    networks:
+      - network
+    depends_on:
+      - mongo
+  fe:
+    container_name: fe
+    build:
+      context: .
+      dockerfile: ./containers/fe/Dockerfile
+    environment:
+      - PORT=3000
+    env_file:
+      - ./src/fe/.env
+    ports:
+      - 3000:3000
+    restart: always
+    networks:
+      - network
+  mongo:
+    image: mongo:4.4
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./database/mongo/db:/data/db
+    restart: unless-stopped
+    networks:
+      - network
+networks:
+  network:
+    driver: bridge
