@@ -15,7 +15,8 @@ app.listen(port, () => {
 })
 
 async function connectMongo() {
-    const uri = "mongodb://mongo:27017";
+    const mongoHost = process.env.MONGO_HOST || 'localhost';
+    const uri = `mongodb://${mongoHost}:27017`;
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     try {
         await client.connect();

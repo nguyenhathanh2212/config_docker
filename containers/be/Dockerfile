@@ -5,6 +5,6 @@ COPY ./src/be/package*.json .
 RUN npm install
 
 COPY ./src/be/app.js .
-COPY ./src/be/src .
+# COPY ./src/be/src .
 
 CMD ["node", "app.js"]

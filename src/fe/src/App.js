@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  // fetch('http://127.0.0.1:8080', { credentials: "same-origin" })
+  fetch('http://127.0.0.1:8080', { credentials: "same-origin" })
   return (
     <div className="App">
       <header className="App-header">
