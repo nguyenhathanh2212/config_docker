@@ -4,7 +4,7 @@ services:
     container_name: web
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./containers/web/Dockerfile
     env_file:
       - ./src/be/.env
     ports:
@@ -20,15 +20,20 @@ services:
     depends_on:
       - mongo
   mongo:
-    # image: mongo:4.4
     container_name: mongo
     build:
       context: .
       dockerfile: ./containers/mongo/Dockerfile
-    ports:
-      - 27017:27017
+    # ports:
+    #   - 27017:27017
     volumes:
       - ./database/mongo/db:/data/db
+      - ./database/mongo/backup:/data/backup
+    healthcheck:
+      test: echo 'db.runCommand({serverStatus:1}).ok' | cron -f
+      interval: 10s
+      timeout: 10s
+      retries: 3
     restart: always
     networks:
       - network

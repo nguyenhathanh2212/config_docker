@@ -1,1 +1,1 @@
-* * * * * sh /backup_mongo.sh
+* * * * * sh /backup_mongo.sh test > /var/log/cron-backup_mongo.log

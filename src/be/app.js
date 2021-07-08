@@ -17,6 +17,10 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
 
+app.get('/test', () => {
+    connectMongo().catch(console.error);
+})
+
 async function connectMongo() {
     const uri = "mongodb://mongo:27017";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -36,4 +40,3 @@ async function listDatabases(client) {
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
 
-connectMongo().catch(console.error);
